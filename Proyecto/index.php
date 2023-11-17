@@ -1,23 +1,44 @@
 <!DOCTYPE html>
 
+<?php
+
+session_start();
+
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    include './scripts/conexionBD.php';
+    iniciarSesion($cadenaConexion);
+}
+
+?>
+
 <html>
     <head>
         <meta charset="UTF-8">
         <title></title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-        <form action="" method="POST">
-            <div class="mb-3">
-                <label for="usuario" class="form-label">Usuario</label>
-                <input type="text" class="form-control" id="user" name="user">
+    <div class="wrapper">
+        <form action="" class="form" method="POST">
+            <h1 class="title">Inicio</h1>
+            <div cLass="inp">
+                <input type="text" name="user" class="input" placeholder="Usuario">
+                <i class="fa-solid fa-user ">
             </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" name="pass">
+            <div class="inp ">
+                <input type="password " name="pass" class="input" placeholder="Contraseña">
+                <i class= "fa-solid fa-lock "></i>
             </div>
-            <button type="submit" class="btn btn-primary" name="enviar">Entrar</button>
+            <button name="enviar" cLass="submit">Iniciar Sesión</button>
+            <p class="footer">¿No tienes cuenta?<a href="# " class="link"> Por favor, Registrate</a></p>
         </form>
+        <div></div>
+        <div class="banner">
+            <h1 class="wel_text">BIENVENIDO<br/></h1>
+            <p class="para"> Gracias por ver el video <br/> <br/>login</p>
+        </div>
+    </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     </body>

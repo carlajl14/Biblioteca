@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-11-2023 a las 19:12:58
+-- Tiempo de generación: 23-11-2023 a las 16:58:50
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -131,7 +131,7 @@ INSERT INTO `libros_bibliotecas` (`Id_libro`, `Id_biblioteca`, `Disponibilidad`)
 CREATE TABLE `usuarios` (
   `Id` int(11) NOT NULL,
   `Nombre` varchar(100) NOT NULL,
-  `Contraseña` varchar(20) NOT NULL,
+  `Contraseña` varchar(64) NOT NULL,
   `Rol` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

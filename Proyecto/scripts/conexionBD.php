@@ -7,22 +7,20 @@ $cadenaConexion = 'mysql:dbname=biblioteca;host=127.0.0.1';
  */
 function iniciarSesion($cadenaConexion) {
     $user = $_POST['user'];
-    $pass = $_POST['pass'];
+    $clave = $_POST['pass'];
 
     $bd = new PDO($cadenaConexion, 'root', '');
 
     $ini = $bd->prepare('select * from usuarios where Nombre = ? and Contraseña = sha1(?)');
-    $ini->execute(array($user, $pass));
+    $ini->bindParam(1, $user);
+    $ini->bindParam(2, $clave);
+    $ini->execute();
 
     if($ini->rowCount() === 1) {
         $_SESSION['user'] = $user;
 
-        foreach($ini as $Rol) {
-            if($Rol === 1) {
-                header('Location: ./pages/admin.php');
-            } else {
-                header('Location: ./pages/inicio.php');
-            }
+        foreach($ini as $rol) {
+            $_SESSION["Rol"] = $rol["Rol"];
         }
     }
 }

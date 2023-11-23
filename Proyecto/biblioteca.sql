@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-11-2023 a las 17:13:18
+-- Tiempo de generación: 23-11-2023 a las 17:43:14
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -140,13 +140,12 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`Id`, `Nombre`, `Contraseña`, `Rol`) VALUES
-(1, 'Carla', '5f126c5742546995c30f', 1),
-(2, 'Alba', 'f045489c5d2cffca1d4d', 1),
-(3, 'Sheila', 'd56c8b4a39f60d541d98', 1),
-(4, 'Luismi', '70f106fd19de33baf34b', 1),
-(5, 'Viginia', '027fb4bdb28984d493fe', 0),
-(6, 'Juan', 'c5652d9cc6bcf28e0e20', 0),
-(7, 'Pepe', '8d78fb402a331bdfecab3033c902fd469c33d3d7', 1);
+(1, 'Sheila', 'd56c8b4a39f60d541d982fa579322c9a48697f09', 1),
+(2, 'Carla', '5f126c5742546995c30f56bb6b1916d768624929', 1),
+(3, 'Alba', 'f045489c5d2cffca1d4d892c5f61e6e1f8a8e524', 1),
+(4, 'Luismi', '70f106fd19de33baf34bc6866b5f76c9b5803978', 1),
+(5, 'Pepe', '8d78fb402a331bdfecab3033c902fd469c33d3d7', 0),
+(6, 'Rosa', '2c0d557df1c97d2febfed7de875d344d6f4a1625', 0);
 
 --
 -- Índices para tablas volcadas

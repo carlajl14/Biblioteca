@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-11-2023 a las 16:58:50
+-- Tiempo de generación: 23-11-2023 a las 17:13:18
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -131,7 +131,7 @@ INSERT INTO `libros_bibliotecas` (`Id_libro`, `Id_biblioteca`, `Disponibilidad`)
 CREATE TABLE `usuarios` (
   `Id` int(11) NOT NULL,
   `Nombre` varchar(100) NOT NULL,
-  `Contraseña` varchar(64) NOT NULL,
+  `Contraseña` varchar(200) NOT NULL,
   `Rol` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -145,7 +145,8 @@ INSERT INTO `usuarios` (`Id`, `Nombre`, `Contraseña`, `Rol`) VALUES
 (3, 'Sheila', 'd56c8b4a39f60d541d98', 1),
 (4, 'Luismi', '70f106fd19de33baf34b', 1),
 (5, 'Viginia', '027fb4bdb28984d493fe', 0),
-(6, 'Juan', 'c5652d9cc6bcf28e0e20', 0);
+(6, 'Juan', 'c5652d9cc6bcf28e0e20', 0),
+(7, 'Pepe', '8d78fb402a331bdfecab3033c902fd469c33d3d7', 1);
 
 --
 -- Índices para tablas volcadas
@@ -196,7 +197,7 @@ ALTER TABLE `libros`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas

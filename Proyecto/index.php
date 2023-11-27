@@ -4,9 +4,6 @@
 
 session_start();
 
-$pass = sha1($_POST['pass']);
-echo $pass;
-
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     include './scripts/conexionBD.php';
     iniciarSesion($cadenaConexion);
@@ -38,7 +35,7 @@ if(isset($_SESSION['user']) && isset($_SESSION['Rol'])) {
             <h1 class="title">Inicio</h1>
             <div cLass="inp">
                 <input type="text" name="user" class="input" placeholder="Usuario">
-                <i class="fa-solid fa-user">
+                <i class="fa-solid fa-user"></i>
             </div>
             <div class="inp">
                 <input type="password" name="pass" class="input" placeholder="Contraseña">

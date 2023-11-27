@@ -25,4 +25,33 @@ function iniciarSesion($cadenaConexion) {
     }
 }
 
+function getAllUsers($cadenaConexion){
+    $bd = new PDO($cadenaConexion, 'root', '');
+    
+    $stmt = $bd->prepare('SELECT Id, Nombre, Rol FROM USUARIOS');
+    $stmt ->execute();
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    foreach ($users as $user){
+        echo '<tr>'
+        . '<th scope="row">'.$user['Id'].'</th>'
+        . '<td scope="row">'.$user['Nombre'].'</td>';
+        if($user['Rol'] == 1){
+            echo '<td scope="row"> Administrador </td>';
+        }else{
+            echo '<td scope="row"> Usuario </td>';
+        }
+        echo '<td scope="row">'
+        . '<form method="POST" action="">'
+                . '<input type="text" name="Nombre"  value="' . $user['Nombre'] . '" hidden/>'
+                . '<button class="btn" id="eliminar" type="submit" name="eliminar">Eliminar</button>'
+        . '</form>'
+        . '</td>'
+        . '<td>'
+        . '<a href="Modificar">Modificar</a>'
+        . '</td>'
+        . '</tr>';
+    }
+}
+
 ?>

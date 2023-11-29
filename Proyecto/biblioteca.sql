@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-11-2023 a las 17:43:14
+-- Tiempo de generación: 29-11-2023 a las 01:56:42
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -52,7 +52,7 @@ INSERT INTO `bibliotecas` (`Id`, `Nombre`, `Direccion`, `Telefono`) VALUES
 
 CREATE TABLE `libros` (
   `Id` int(11) NOT NULL,
-  `Nombre` varchar(100) NOT NULL,
+  `Titulo` varchar(100) NOT NULL,
   `Autor` varchar(50) NOT NULL,
   `Editorial` varchar(100) DEFAULT NULL,
   `ISBN` bigint(15) NOT NULL
@@ -62,7 +62,7 @@ CREATE TABLE `libros` (
 -- Volcado de datos para la tabla `libros`
 --
 
-INSERT INTO `libros` (`Id`, `Nombre`, `Autor`, `Editorial`, `ISBN`) VALUES
+INSERT INTO `libros` (`Id`, `Titulo`, `Autor`, `Editorial`, `ISBN`) VALUES
 (1, 'Las hijas de las criadas', 'Sonsoles Onega', 'PLANETA', 9788408280170),
 (2, 'La sangre del padre', 'Alfonso Goizueta', 'PLANETA', 9788408280187),
 (3, 'El problema final', 'Arturo Perez Reverte', 'ALFAGUARA', 9788420476360),

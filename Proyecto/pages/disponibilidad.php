@@ -51,22 +51,31 @@ include '../scripts/conexionBD.php';
             </nav>
         </div>
         <div class="container-xl mt-5 text-center">
-            <h1 class="m-4 display-2">Listado de Usuarios</h1>
+            <h1 class="m-4 display-2">Listado de Libros y Bibliotecas</h1>
             <table class="table table-striped table-hover">
                 <thead class="table-dark">
                     <tr class="fs-5">
-                        <th scope="col">Codigo</th>
+                        <th scope="col">Código</th>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Código</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Rol</th>
+                        <th scope="col">Disponibilidad</th>
+                        <th scope="col">Borrar</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
                     <?php
-                    getAllUsers($cadenaConexion);          
+                    getBooksLibrary($cadenaConexion);
+                    if (isset($_POST['eliminar'])) {
+                        $IdLibro = $_POST['Id_libro'];
+                        $IdBiblioteca = $_POST['Id_biblioteca'];
+                        deleteBooksLibraries($cadenaConexion, $IdLibro, $IdBiblioteca);
+                    }
                     ?>
 
                 </tbody>
             </table>
+            <h2 class="m-4 display-3">Insertar Libros y Bibliotecas</h2>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     </body>

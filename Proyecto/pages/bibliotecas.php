@@ -11,7 +11,7 @@ include '../scripts/conexionBD.php';
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
         <link rel="stylesheet" href="../css/admin.css">
-        <title>Admin</title>
+        <title>Bibliotecas</title>
     </head>
     <body>
         <div class="nav">
@@ -31,7 +31,7 @@ include '../scripts/conexionBD.php';
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="disponibilidad.php">Disponibilidad</a>
-                            </li>                             
+                            </li> 
                         </ul>
                         <div class="d-flex div_boton">
                             <p class="p">Administrador: <span> <?php
@@ -51,18 +51,19 @@ include '../scripts/conexionBD.php';
             </nav>
         </div>
         <div class="container-xl mt-5 text-center">
-            <h1 class="m-4 display-2">Listado de Usuarios</h1>
+            <h1 class="m-4 display-2">Listado de Bibliotecas</h1>
             <table class="table table-striped table-hover">
                 <thead class="table-dark">
                     <tr class="fs-5">
                         <th scope="col">Codigo</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Rol</th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col">Teléfono</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
                     <?php
-                    getAllUsers($cadenaConexion);          
+                    getAllLibrary($cadenaConexion);
                     ?>
 
                 </tbody>

@@ -1,3 +1,18 @@
+<?php
+
+include('../scripts/conexionBD.php');
+
+//Comprobar si los campos están vacíos o no
+if(isset($_POST['registro'])) {
+    if(!empty($_POST['nombre']) && !empty($_POST['pass'])) {
+        registerUser($cadenaConexion);
+    } else {
+        echo '<div class="mensaje rojo">Faltan datos</div>';
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -25,6 +40,7 @@
                 <input type="password" name="pass" class="input" placeholder="Contraseña">
             </div>
             <button name="registro" cLass="submit">Registrarse</button>
+            <p class="footer">Si ya tienes cuenta<a href="../index.php" class="link"> Por favor, Inicia Sesión</a></p>
         </form>
         <div></div>
         <div class="banner">

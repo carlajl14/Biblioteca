@@ -1,7 +1,12 @@
 <?php
 session_start();
 
-include '../scripts/conexionBD.php';
+include('../scripts/conexionBD.php');
+
+//Comprobar si la sesión esta iniciada
+if (!isset($_SESSION['user'])) {
+    header("Location: ../index.php");
+}
 ?>
 
 <!DOCTYPE html>

@@ -107,3 +107,30 @@ input {
     line-height: 24px;
     letter-spacing: 1px;
 }
+
+.mensaje {
+    position: absolute;
+    top: 90%;
+    left: 80%;
+    background-color: rgba(129, 222, 129, 0.471);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    animation: mostrar 1s;
+}
+
+@keyframes mostrar {
+    0%{
+        transform: translateX(-10px);
+    }
+    50%{
+        transform: translateX(400px);
+    }
+    100%{
+        transform: translateX(-10px);
+    }
+}
+
+.rojo {
+    background-color: red;
+}

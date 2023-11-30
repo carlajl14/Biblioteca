@@ -22,6 +22,8 @@ function iniciarSesion($cadenaConexion) {
         foreach ($ini as $rol) {
             $_SESSION["Rol"] = $rol["Rol"];
         }
+    } else {
+        echo '<div class="mensaje rojo">Usuario o contraseña incorrectos</div>';
     }
 }
 
@@ -49,7 +51,7 @@ function getAllUsers($cadenaConexion) {
 }
 
 /**
- * Función para mostrar todos lo libros
+ * Función para mostrar todos los libros
  */
 function getAllBooks($cadenaConexion) {
     $bd = new PDO($cadenaConexion, 'root', '');
@@ -157,6 +159,27 @@ function deleteBooksLibraries($cadenaConexion, $IdLibro, $IdBiblioteca) {
         echo 'Registro eliminado';
     } else {
         echo 'Registro No eliminado';
+    }
+}
+
+/**
+ * Registro de usuario
+ */
+function registerUser($cadenaConexion) {
+    $nombre = $_POST['nombre'];
+    $contraseña = $_POST['pass'];
+
+    $bd = new PDO($cadenaConexion, 'root', '');
+    
+    $ins = $bd->prepare('insert into usuarios (Nombre, Contraseña, Rol) VALUES (?, sha1(?), 0);');
+    $ins->bindParam(1, $nombre);
+    $ins->bindParam(2, $contraseña);
+    $ins ->execute();
+
+    if($ins->rowCount() == 1) {
+        echo '<div class="mensaje">Usuario registrado</div>';
+    } else {
+        echo '<div class="mensaje rojo">Usuario no registrado</div>';
     }
 }
 

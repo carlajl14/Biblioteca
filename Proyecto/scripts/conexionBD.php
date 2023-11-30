@@ -3,6 +3,28 @@
 $cadenaConexion = 'mysql:dbname=biblioteca;host=127.0.0.1';
 
 /**
+ * Iniciar sesión solo si no está activa
+ */
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+/**
+ * Función para establecer la cookie de último acceso
+ */
+function establecerCookie() {
+    if (!isset($_SESSION['user'])) {
+        // Establecer la cookie si el usuario no tiene una sesión activa
+        setcookie('ultimoAcceso', time(), time() + 86400); // Caduca en 24 horas
+    }
+}
+
+/**
+ *  Llamar a la función para establecer la cookie
+ */
+establecerCookie();
+
+/**
  * Función para iniciar sesión y comprobar que se ha iniciado correctamente
  */
 function iniciarSesion($cadenaConexion) {

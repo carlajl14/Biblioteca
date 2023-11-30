@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 if(isset($_SESSION['user']) && isset($_SESSION['Rol'])) {
     switch($_SESSION['Rol']){
         case 0:
-            header("Location: pages/register.php");
+            header("Location: pages/user.php");
             break;
         case 1:
             header("Location: pages/admin.php");

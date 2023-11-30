@@ -42,7 +42,7 @@ include '../scripts/conexionBD.php';
                                     ?></span>
                             </p>
 
-                            <form method="POST" action="../index.php">
+                            <form method="POST" action="../pages/logout.php">
                                 <button class="btn btn-outline-danger" name="cerrar_sesion">Cerrar Sesión</button>
                             </form>
 
@@ -65,7 +65,7 @@ include '../scripts/conexionBD.php';
                 </thead>
                 <tbody class="table-group-divider">
                     <?php
-                    getAllBooks($cadenaConexion);                    
+                    getAllBooks($cadenaConexion);
                     ?>
 
                 </tbody>

@@ -2,6 +2,8 @@
 
 $cadenaConexion = 'mysql:dbname=biblioteca;host=127.0.0.1';
 
+
+
 /**
  * Iniciar sesión solo si no está activa
  */

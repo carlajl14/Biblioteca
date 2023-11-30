@@ -46,7 +46,7 @@ if (!isset($_SESSION['user'])) {
                                     ?></span>
                             </p>
 
-                            <form method="POST" action="../index.php">
+                            <form method="POST" action="../pages/logout.php">
                                 <button class="btn btn-outline-danger" name="cerrar_sesion">Cerrar Sesión</button>
                             </form>
 
@@ -67,7 +67,7 @@ if (!isset($_SESSION['user'])) {
                 </thead>
                 <tbody class="table-group-divider">
                     <?php
-                    getAllUsers($cadenaConexion);          
+                    getAllUsers($cadenaConexion);
                     ?>
 
                 </tbody>

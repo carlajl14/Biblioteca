@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-11-2023 a las 01:56:42
+-- Tiempo de generación: 30-11-2023 a las 16:46:48
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -74,15 +74,7 @@ INSERT INTO `libros` (`Id`, `Titulo`, `Autor`, `Editorial`, `ISBN`) VALUES
 (9, 'Los misterios de la taberna Kamogawa', 'Hisashi Kashiwai', 'SALAMANDRA', 9788419346025),
 (10, 'La clase de griego', 'Han Kang', 'LITERATURA RANDOM HOUSE', 9788439741817),
 (11, 'Delito', 'Carme Chaparro', 'ESPASA LIBROS', 9788467068702),
-(12, 'Tasmania', 'Paolo Giordano', 'TUSQUETS EDITORES', 9788411073295),
-(13, 'Orgullo y Prejucio', 'Jane Austen', 'ALMA EUROPA', 9788419599216),
-(14, 'Los siete marios de Evelyn Hugo', 'Taylor Jenkins Reid', 'UNBRIEL', 9788419030733),
-(15, 'Todo arde', 'Juan Gómez Jurado', 'EDITORIALES-B', 9788466672474),
-(16, 'Todo vuelve', 'Juan Gómez Jurado', 'EDITORIALES-B', 9788466675680),
-(17, 'Como (No) escribi nuestra historia', 'Elizabet Benavent', 'SUMA', 9788491297246),
-(18, 'De amor y de guerra', 'Pilar Eyre', 'PLANETA', 9788408276685),
-(19, 'Esperando al diluvio', 'Dolores Redondo', 'DESTINO', 9788423362479),
-(20, 'El favor', 'John Verdon', 'ROCA EDITORIAL DE LIBROS', 9788419283726);
+(12, 'Tasmania', 'Paolo Giordano', 'TUSQUETS EDITORES', 9788411073295);
 
 -- --------------------------------------------------------
 
@@ -110,17 +102,7 @@ INSERT INTO `libros_bibliotecas` (`Id_libro`, `Id_biblioteca`, `Disponibilidad`)
 (8, 2, 274),
 (9, 1, 125),
 (10, 2, 20),
-(10, 4, 423),
-(12, 1, 40),
-(13, 1, 625),
-(14, 2, 563),
-(14, 3, 321),
-(15, 1, 346),
-(15, 4, 839),
-(17, 1, 507),
-(18, 4, 29),
-(19, 3, 30),
-(20, 1, 385);
+(10, 4, 423);
 
 -- --------------------------------------------------------
 

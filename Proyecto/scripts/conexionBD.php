@@ -52,137 +52,6 @@ function iniciarSesion($cadenaConexion) {
 }
 
 /**
- * Función para recoger todos los usuarios y mostrarlos en una tabla
- */
-function getAllUsers($cadenaConexion) {
-    $bd = new PDO($cadenaConexion, 'root', '');
-
-    $ini = 'SELECT * FROM USUARIOS';
-    $users = $bd->query($ini);
-
-    foreach ($users as $user) {
-        echo '<tr class="fs-5">'
-        . '<th scope="row">' . $user['Id'] . '</th>'
-        . '<td>' . $user['Nombre'] . '</td>';
-        if ($user['Rol'] == 1) {
-            echo '<td> Administrador </td>';
-        } else {
-            echo '<td> Usuario </td>';
-        }
-        echo '</tr>';
-    }
-}
-
-/**
- * Función para mostrar todos los libros
- */
-function getAllBooks($cadenaConexion) {
-    $bd = new PDO($cadenaConexion, 'root', '');
-
-    $ini = 'SELECT * FROM LIBROS';
-    $books = $bd->query($ini);
-
-    foreach ($books as $book) {
-        echo '<tr class="fs-5">'
-        . '<th scope="row">' . $book['Id'] . '</th>'
-        . '<td>' . $book['Titulo'] . '</td>'
-        . '<td>' . $book['Autor'] . '</td>'
-        . '<td>' . $book['Editorial'] . '</td>'
-        . '<td>' . $book['ISBN'] . '</td>'
-        . '</tr>';
-    }
-}
-
-/**
- * Función para mostrar todas las bibliotecas
- */
-function getAllLibrary($cadenaConexion) {
-    $bd = new PDO($cadenaConexion, 'root', '');
-
-    $ini = 'SELECT * FROM BIBLIOTECAS';
-    $libraries = $bd->query($ini);
-
-    foreach ($libraries as $library) {
-        echo '<tr class="fs-5">'
-        . '<th scope="row">' . $library['Id'] . '</th>'
-        . '<td>' . $library['Nombre'] . '</td>'
-        . '<td>' . $library['Direccion'] . '</td>'
-        . '<td>' . $library['Telefono'] . '</td>'
-        . '</tr>';
-    }
-}
-
-/**
- * Función para mostrar que libro y en que biblioteca esta disponible y el numero de ejemplares
- */
-function getBooksLibrary($cadenaConexion) {
-    $bd = new PDO($cadenaConexion, 'root', '');
-
-    $ini = 'SELECT lb.Id_libro, l.Titulo, lb.Id_biblioteca, b.Nombre, lb.disponibilidad
-                            FROM libros_bibliotecas lb 
-                            JOIN libros l 
-                            ON (lb.Id_libro = l.Id) JOIN bibliotecas b
-                            ON (lb.Id_biblioteca = b.Id)
-                            ORDER BY lb.Id_libro';
-    $books_libraries = $bd->query($ini);
-
-    foreach ($books_libraries as $book_library) {
-        echo '<tr class="fs-5">'
-        . '<th scope="row">' . $book_library['Id_libro'] . '</th>'
-        . '<td>' . $book_library['Titulo'] . '</td>'
-        . '<td>' . $book_library['Id_biblioteca'] . '</td>'
-        . '<td>' . $book_library['Nombre'] . '</td>'
-        . '<td>' . $book_library['disponibilidad'] . '</td>'
-        . '<td>'
-        . '<form method="POST" action="">'
-        . '<input type="text" name="Id_libro"  value="' . $book_library['Id_libro'] . '" hidden/>'
-        . '<input type="text" name="Id_biblioteca"  value="' . $book_library['Id_biblioteca'] . '" hidden/>'
-        . '<button class="btn btn-outline-danger" id="eliminar" type="submit" name="eliminar">Eliminar</button>'
-        . '</form>'
-        . '</td>'
-        . '</tr>';
-    }
-}
-
-/**
- * Función para eliminar un registro de libro y biblioteca
- */
-function deleteBooksLibraries($cadenaConexion, $IdLibro, $IdBiblioteca) {
-    $bd = new PDO($cadenaConexion, 'root', '');
-
-    /* echo '<div class="modal" tabindex="-1">
-      <div class="modal-dialog">
-      <div class="modal-content">
-      <div class="modal-header">
-      <h5 class="modal-title">Modal title</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-      <form method="POST" action="">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-      <button type="button" class="btn btn-primary" name="aceptar">Aceptar</button>
-      </form>
-      </div>
-      </div>
-      </div>
-      </div>'; */
-
-    $del = $bd->prepare('DELETE FROM LIBROS_BIBLIOTECAS WHERE Id_libro = ? AND id_biblioteca = ?');
-    $del->bindParam(1, $IdLibro);
-    $del->bindParam(2, $IdBiblioteca);
-    $del->execute();
-
-    if ($del->rowCount() === 0) {
-        echo 'Registro eliminado';
-    } else {
-        echo 'Registro No eliminado';
-    }
-}
-
-/**
  * Registro de usuario
  */
 function registerUser($cadenaConexion) {
@@ -245,6 +114,165 @@ function cardBook($cadenaConexion) {
         echo '</div>';
         echo '</div>';
     }
+}
+
+
+/**
+ * Función para mostrar que libro y en que biblioteca esta disponible y el numero de ejemplares
+ */
+function getBooksLibrary($cadenaConexion) {
+    $bd = new PDO($cadenaConexion, 'root', '');
+
+    $ini = 'SELECT lb.Id_libro, l.Titulo, lb.Id_biblioteca, b.Nombre, lb.disponibilidad
+                            FROM libros_bibliotecas lb 
+                            JOIN libros l 
+                            ON (lb.Id_libro = l.Id) JOIN bibliotecas b
+                            ON (lb.Id_biblioteca = b.Id)
+                            ORDER BY lb.Id_libro';
+    $books_libraries = $bd->query($ini);
+
+    foreach ($books_libraries as $book_library) {
+        echo '<tr class="fs-5">'
+        . '<th scope="row">' . $book_library['Id_libro'] . '</th>'
+        . '<td>' . $book_library['Titulo'] . '</td>'
+        . '<td>' . $book_library['Id_biblioteca'] . '</td>'
+        . '<td>' . $book_library['Nombre'] . '</td>'
+        . '<td>' . $book_library['disponibilidad'] . '</td>'
+        . '<td>'
+        . '<form method="POST" action="">'
+        . '<input type="text" name="Id_libro"  value="' . $book_library['Id_libro'] . '" hidden/>'
+        . '<input type="text" name="Id_biblioteca"  value="' . $book_library['Id_biblioteca'] . '" hidden/>'
+        . '<button class="btn btn-outline-primary" id="modificar" type="submit" name="modificar">Modificar</button>'
+        . '</form>'
+        . '</td>'
+        . '<td>'
+        . '<form method="POST" action="">'
+        . '<input type="text" name="Id_libro"  value="' . $book_library['Id_libro'] . '" hidden/>'
+        . '<input type="text" name="Id_biblioteca"  value="' . $book_library['Id_biblioteca'] . '" hidden/>'
+        . '<button class="btn btn-outline-danger" id="eliminar" type="submit" name="eliminar">Eliminar</button>'
+        . '</form>'
+        . '</td>'
+        . '</tr>';
+    }
+}
+
+/**
+ * Función para eliminar un registro de libro y biblioteca
+ */
+function deleteBooksLibraries($cadenaConexion, $IdLibro, $IdBiblioteca) {
+    $bd = new PDO($cadenaConexion, 'root', '');
+
+    /* echo '<div class="modal" tabindex="-1">
+      <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title">Modal title</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+      <form method="POST" action="">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+      <button type="button" class="btn btn-primary" name="aceptar">Aceptar</button>
+      </form>
+      </div>
+      </div>
+      </div>
+      </div>'; */
+
+    $del = $bd->prepare('DELETE FROM LIBROS_BIBLIOTECAS WHERE Id_libro = ? AND id_biblioteca = ?');
+    $del->bindParam(1, $IdLibro);
+    $del->bindParam(2, $IdBiblioteca);
+    $del->execute();
+
+    if ($del->rowCount() === 0) {
+        echo 'Registro eliminado';
+    } else {
+        echo 'Registro No eliminado';
+    }
+}
+
+function FormInsertBookLibraries($cadenaConexion) {
+    $bd = new PDO($cadenaConexion, 'root', '');
+
+    $ini = $bd->prepare('SELECT * FROM LIBROS');
+    $ini->execute();
+    $ls = $ini->fetchAll(PDO::FETCH_ASSOC);
+
+    $lib = $bd->prepare('SELECT * FROM BIBLIOTECAS');
+    $lib->execute();
+    $bs = $lib->fetchAll(PDO::FETCH_ASSOC);
+
+    echo '<label for="exampleInputPassword1" class="form-label">Selecciona ID del Libro: </label>
+          <select class="form-select" aria-label="Default select example" name="libro">';
+    foreach ($ls as $l) {
+        echo '<option value="' . $l['Id'] . '">' . $l['Id'] . ' - ' . $l['Titulo'] . '</option>';
+    }
+    echo '</select>'
+    . '<label for="exampleInputPassword1" class="form-label">Selecciona ID de la Biblioteca: </label>
+          <select class="form-select" aria-label="Default select example" name="biblioteca">';
+    foreach ($bs as $b) {
+        echo '<option value="' . $b['Id'] . '">' . $b['Id'] . ' - ' . $b['Nombre'] . '</option>';
+    }
+    echo '</select>';
+    echo '<label for="exampleInputPassword1" class="form-label">Ejemplares disponibles: </label>'
+    . '<input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="disponibilidad">'
+    . '<button class="btn btn-outline-success" id="insertar" type="submit" name="insertar">Insertar Registro</button>';
+
+    if (isset($_POST['insertar'])) {
+        $id_Libro = $_POST['libro'];
+        $id_Biblioteca = $_POST['biblioteca'];
+        $disponibilidad = $_POST['disponibilidad'];
+        InsertBookLibraries($cadenaConexion, $id_Libro, $id_Biblioteca, $disponibilidad);
+    }
+}
+
+function InsertBookLibraries($cadenaConexion, $id_Libro, $id_Biblioteca, $disponibilidad) {
+    $bd = new PDO($cadenaConexion, 'root', '');
+
+    $inset = $bd->prepare('INSERT INTO libros_bibliotecas (id_libro, id_biblioteca, disponibilidad) VALUES (?,?,?);');
+    $inset->bindParam(1, $id_Libro);
+    $inset->bindParam(2, $id_Biblioteca);
+    $inset->bindParam(3, $disponibilidad);
+    $inset->execute();
+
+    if ($inset->rowCount() == 1) {
+        echo '<div class="mensaje">Registro Insertado</div>';
+    } else {
+        echo '<div class="mensaje rojo">Registro no insertado</div>';
+    }
+}
+
+function FormUpdateBookLibraries($cadenaConexion,$idLibro,$idBiblioteca,$titulo){
+    $bd = new PDO($cadenaConexion, 'root', '');
+    
+    $ini = $bd->prepare("SELECT titulo FROM LIBROS WHERE id = $idLibro");
+    $libro = $ini->execute();
+
+    $lib = $bd->prepare('SELECT * FROM BIBLIOTECAS WHERE id = ?');
+    $lib->bindParam(1, $idBiblioteca);
+    $lib->execute();
+
+    echo '<label for="exampleInputPassword1" class="form-label">Libro: </label>'
+    . '<input type="text" class="form-control" value="'.$idLibro.'" id="exampleInputEmail1" aria-describedby="emailHelp" name="libro" disabled>';
+    
+    if (isset($_POST['modificar'])) {
+        $disponibilidad = $_POST['disponibilidad'];       
+        UpdateBookLibraries($cadenaConexion,$disponibilidad);
+    }
+}
+
+function UpdateBookLibraries($cadenaConexion,$disponibilidad){
+    $bd = new PDO($cadenaConexion, 'root', '');
+    
+    $update = $bd->prepare('UPDATE libros_bibliotecas SET disponibilidad = ? 
+                            WHERE id_libro = ? AND id_biblioteca = ?;');
+    $update->bindParam(1, $disponibilidad);
+    $update->bindParam(2, $id_Libro);
+    $update->bindParam(3, $id_Biblioteca);
+    $update->execute();   
 }
 
 ?>

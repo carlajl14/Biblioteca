@@ -57,9 +57,8 @@ function iniciarSesion($cadenaConexion) {
 function getAllUsers($cadenaConexion) {
     $bd = new PDO($cadenaConexion, 'root', '');
 
-    $ini = $bd->prepare('SELECT * FROM USUARIOS');
-    $ini->execute();
-    $users = $ini->fetchAll(PDO::FETCH_ASSOC);
+    $ini = 'SELECT * FROM USUARIOS';
+    $users = $bd->query($ini);
 
     foreach ($users as $user) {
         echo '<tr class="fs-5">'
@@ -80,9 +79,8 @@ function getAllUsers($cadenaConexion) {
 function getAllBooks($cadenaConexion) {
     $bd = new PDO($cadenaConexion, 'root', '');
 
-    $ini = $bd->prepare('SELECT * FROM LIBROS');
-    $ini->execute();
-    $books = $ini->fetchAll(PDO::FETCH_ASSOC);
+    $ini = 'SELECT * FROM LIBROS';
+    $books = $bd->query($ini);
 
     foreach ($books as $book) {
         echo '<tr class="fs-5">'
@@ -101,9 +99,8 @@ function getAllBooks($cadenaConexion) {
 function getAllLibrary($cadenaConexion) {
     $bd = new PDO($cadenaConexion, 'root', '');
 
-    $ini = $bd->prepare('SELECT * FROM BIBLIOTECAS');
-    $ini->execute();
-    $libraries = $ini->fetchAll(PDO::FETCH_ASSOC);
+    $ini = 'SELECT * FROM BIBLIOTECAS';
+    $libraries = $bd->query($ini);
 
     foreach ($libraries as $library) {
         echo '<tr class="fs-5">'
@@ -121,14 +118,13 @@ function getAllLibrary($cadenaConexion) {
 function getBooksLibrary($cadenaConexion) {
     $bd = new PDO($cadenaConexion, 'root', '');
 
-    $ini = $bd->prepare('SELECT lb.Id_libro, l.Titulo, lb.Id_biblioteca, b.Nombre, lb.disponibilidad
+    $ini = 'SELECT lb.Id_libro, l.Titulo, lb.Id_biblioteca, b.Nombre, lb.disponibilidad
                             FROM libros_bibliotecas lb 
                             JOIN libros l 
                             ON (lb.Id_libro = l.Id) JOIN bibliotecas b
                             ON (lb.Id_biblioteca = b.Id)
-                            ORDER BY lb.Id_libro;');
-    $ini->execute();
-    $books_libraries = $ini->fetchAll(PDO::FETCH_ASSOC);
+                            ORDER BY lb.Id_libro';
+    $books_libraries = $bd->query($ini);
 
     foreach ($books_libraries as $book_library) {
         echo '<tr class="fs-5">'
@@ -204,6 +200,50 @@ function registerUser($cadenaConexion) {
         echo '<div class="mensaje">Usuario registrado</div>';
     } else {
         echo '<div class="mensaje rojo">Usuario no registrado</div>';
+    }
+}
+
+/**
+ * Mostrar las tarjetas con los libros
+ */
+
+function cardBook($cadenaConexion) {
+    $libros = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg", "9.jpg", "10.jpg", "11.jpg", "12.jpg"];
+
+    $bd = new PDO($cadenaConexion, 'root', '');
+
+    $mos = 'SELECT l.Id, l.Titulo, l.Autor, l.Editorial, l.ISBN, b.Nombre, lb.disponibilidad FROM libros_bibliotecas lb JOIN libros l ON (lb.Id_libro = l.Id) JOIN bibliotecas b ON (lb.Id_biblioteca = b.Id) ORDER BY lb.Id_libro';
+
+    $cards = $bd->query($mos);
+
+    foreach($cards as $card) {
+        echo '<div class="card">';
+        echo '<div class="box">';
+        foreach($libros as $libro) {
+            $foto = substr($libro, 0, 1);
+            $image = substr($libro, 0, 2);
+            if ($foto < 10 && $foto == $card['Id']) {
+                echo '<img class="image" src="./../assets/images/' .$card['Id']. '.jpg">';
+            } else {
+                if ($image > 9 && $image == $card['Id']) {
+                    echo '<img class="image" src="./../assets/images/' .$card['Id']. '.jpg">';
+                }
+            }
+        }
+        echo '<div class="box__container">';
+        echo '<p class="box__title">Título: '.$card['Titulo']. '</p>';
+        echo '<p class="box__title">Autor: '.$card['Autor']. '</p>';
+        echo '<p class="box__title">Editorial: '.$card['Editorial']. '</p>';
+        echo '<p class="box__title">ISBN: '.$card['ISBN']. '</p>';
+        echo '</div>';
+        echo '</div>';
+        echo '<div class="box__content">';
+        echo '<p class="box__title">Nombre: '.$card['Nombre']. '</p>';
+        echo '<div class="box__text">';
+        echo '<h3 class="box__dis">Disponibilidad: '.$card['disponibilidad'].'</h3>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
     }
 }
 

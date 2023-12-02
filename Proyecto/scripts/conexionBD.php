@@ -142,13 +142,6 @@ function getBooksLibrary($cadenaConexion) {
         . '<form method="POST" action="">'
         . '<input type="text" name="Id_libro"  value="' . $book_library['Id_libro'] . '" hidden/>'
         . '<input type="text" name="Id_biblioteca"  value="' . $book_library['Id_biblioteca'] . '" hidden/>'
-        . '<button class="btn btn-outline-primary" id="modificar" type="submit" name="modificar">Modificar</button>'
-        . '</form>'
-        . '</td>'
-        . '<td>'
-        . '<form method="POST" action="">'
-        . '<input type="text" name="Id_libro"  value="' . $book_library['Id_libro'] . '" hidden/>'
-        . '<input type="text" name="Id_biblioteca"  value="' . $book_library['Id_biblioteca'] . '" hidden/>'
         . '<button class="btn btn-outline-danger" id="eliminar" type="submit" name="eliminar">Eliminar</button>'
         . '</form>'
         . '</td>'
@@ -198,12 +191,10 @@ function FormInsertBookLibraries($cadenaConexion) {
     $bd = new PDO($cadenaConexion, 'root', '');
 
     $ini = $bd->prepare('SELECT * FROM LIBROS');
-    $ini->execute();
-    $ls = $ini->fetchAll(PDO::FETCH_ASSOC);
+    $ls = $bd->query($ini);
 
     $lib = $bd->prepare('SELECT * FROM BIBLIOTECAS');
-    $lib->execute();
-    $bs = $lib->fetchAll(PDO::FETCH_ASSOC);
+    $bs = $bd->query($lib);
 
     echo '<label for="exampleInputPassword1" class="form-label">Selecciona ID del Libro: </label>
           <select class="form-select" aria-label="Default select example" name="libro">';
@@ -245,34 +236,33 @@ function InsertBookLibraries($cadenaConexion, $id_Libro, $id_Biblioteca, $dispon
     }
 }
 
-function FormUpdateBookLibraries($cadenaConexion,$idLibro,$idBiblioteca,$titulo){
-    $bd = new PDO($cadenaConexion, 'root', '');
-    
-    $ini = $bd->prepare("SELECT titulo FROM LIBROS WHERE id = $idLibro");
-    $libro = $ini->execute();
-
-    $lib = $bd->prepare('SELECT * FROM BIBLIOTECAS WHERE id = ?');
-    $lib->bindParam(1, $idBiblioteca);
-    $lib->execute();
-
-    echo '<label for="exampleInputPassword1" class="form-label">Libro: </label>'
-    . '<input type="text" class="form-control" value="'.$idLibro.'" id="exampleInputEmail1" aria-describedby="emailHelp" name="libro" disabled>';
-    
-    if (isset($_POST['modificar'])) {
-        $disponibilidad = $_POST['disponibilidad'];       
-        UpdateBookLibraries($cadenaConexion,$disponibilidad);
-    }
+function FormUpdateBookLibraries(){
+    echo '<form method="POST" action="../pages/admin.php">
+    <label class="form-label">Selecciona ID del Libro: </label>
+    <input type="number" class="form-control" name="libro">
+    <label class="form-label">Selecciona ID de la Biblioteca: </label>
+    <input type="number" class="form-control" name="biblioteca">
+    <label class="form-label">Ejemplares disponibles: </label>
+    <input type="number" class="form-control" name="disponibilidad">
+    <button class="btn btn-outline-success boton" id="enviar" type="submit" name="enviar">Modificar</button>
+        </form>';
 }
 
-function UpdateBookLibraries($cadenaConexion,$disponibilidad){
+function UpdateBookLibraries($cadenaConexion, $disponibilidad, $id_Libro, $id_Biblioteca){
     $bd = new PDO($cadenaConexion, 'root', '');
     
-    $update = $bd->prepare('UPDATE libros_bibliotecas SET disponibilidad = ? 
-                            WHERE id_libro = ? AND id_biblioteca = ?;');
+    $update = $bd->prepare('UPDATE libros_bibliotecas SET Disponibilidad = ? 
+                            WHERE Id_libro = ? AND Id_biblioteca = ?;');
     $update->bindParam(1, $disponibilidad);
     $update->bindParam(2, $id_Libro);
     $update->bindParam(3, $id_Biblioteca);
     $update->execute();   
+
+    if ($update->rowCount() == 1) {
+        echo '<div class="mensaje">Registro modificado</div>';
+    } else {
+        echo '<div class="mensaje rojo">Registro No modificado</div>';
+    }
 }
 
 ?>

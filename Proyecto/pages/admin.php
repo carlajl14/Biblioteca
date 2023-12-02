@@ -30,7 +30,7 @@ if (!isset($_SESSION['user'])) {
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="insertar.php">Insertar</a>
-                            </li>                                                      
+                            </li>                                            <button class="btn btn-primary" id="modificar" name="modificar">Modificar</button>  
                         </ul>
                         <div class="d-flex div_boton">
                             <p class="p">Administrador: <span> <?php
@@ -48,8 +48,8 @@ if (!isset($_SESSION['user'])) {
                     </div>
                 </div>
             </nav>
-        </div>
-        <div class="container-xl mt-5 text-center">
+                                </div>
+        <div class="container-xl mt-5 text-center" id="bajar">
             <h1 class="m-4 display-2">Listado de Libros y Bibliotecas</h1>
             <table class="table table-striped table-hover">
                 <thead class="table-dark">
@@ -59,7 +59,6 @@ if (!isset($_SESSION['user'])) {
                         <th scope="col">Código</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Disponibilidad</th>
-                        <th scope="col">Modificar</th>
                         <th scope="col">Eliminar</th>
                     </tr>
                 </thead>
@@ -72,10 +71,21 @@ if (!isset($_SESSION['user'])) {
                         deleteBooksLibraries($cadenaConexion, $IdLibro, $IdBiblioteca);
                     }
                     ?>
-
                 </tbody>
             </table>
+            <div id="modal" class="modal">
+                <?php
+                    FormUpdateBookLibraries();
+                    if (isset($_POST['enviar'])) {
+                        $disponibilidad = $_POST['disponibilidad'];
+                        $IdLibro = $_POST['libro'];
+                        $IdBiblioteca = $_POST['biblioteca'];
+                        UpdateBookLibraries($cadenaConexion, $disponibilidad, $IdLibro, $IdBiblioteca);
+                    }
+                ?>
+            </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        <script src="../scripts/modify.js"></script>
     </body>
 </html>

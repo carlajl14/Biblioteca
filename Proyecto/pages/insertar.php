@@ -25,7 +25,10 @@ include '../scripts/conexionBD.php';
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="insertar.php">Insertar</a>
-                            </li>                                                        
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="modificar" name="modificar">Modificar</a>
+                            </li>
                         </ul>
                         <div class="d-flex div_boton">
                             <p class="p">Administrador: <span> <?php

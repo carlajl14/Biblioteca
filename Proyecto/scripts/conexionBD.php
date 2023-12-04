@@ -155,61 +155,47 @@ function getBooksLibrary($cadenaConexion) {
 function deleteBooksLibraries($cadenaConexion, $IdLibro, $IdBiblioteca) {
     $bd = new PDO($cadenaConexion, 'root', '');
 
-    /* echo '<div class="modal" tabindex="-1">
-      <div class="modal-dialog">
-      <div class="modal-content">
-      <div class="modal-header">
-      <h5 class="modal-title">Modal title</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-      <form method="POST" action="">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-      <button type="button" class="btn btn-primary" name="aceptar">Aceptar</button>
-      </form>
-      </div>
-      </div>
-      </div>
-      </div>'; */
-
     $del = $bd->prepare('DELETE FROM LIBROS_BIBLIOTECAS WHERE Id_libro = ? AND id_biblioteca = ?');
     $del->bindParam(1, $IdLibro);
     $del->bindParam(2, $IdBiblioteca);
     $del->execute();
 
-    if ($del->rowCount() === 0) {
-        echo 'Registro eliminado';
+    if ($del->rowCount() == 0) {
+        echo '<div class="mensaje">Registro Eliminado</div>';
     } else {
-        echo 'Registro No eliminado';
+        echo '<div class="mensaje rojo">Registro no eliminado</div>';
     }
 }
+
+/**
+ * Función para mostrar el formulario de la inserccion 
+ */
 
 function FormInsertBookLibraries($cadenaConexion) {
     $bd = new PDO($cadenaConexion, 'root', '');
 
-    $ini = $bd->prepare('SELECT * FROM LIBROS');
-    $ls = $bd->query($ini);
+    $in = $bd->prepare('SELECT * FROM LIBROS');
+    $in->execute();
+    $ls = $in->fetchAll(PDO::FETCH_ASSOC);
 
     $lib = $bd->prepare('SELECT * FROM BIBLIOTECAS');
-    $bs = $bd->query($lib);
+    $lib->execute();
+    $bs = $lib->fetchAll(PDO::FETCH_ASSOC);
 
-    echo '<label for="exampleInputPassword1" class="form-label">Selecciona ID del Libro: </label>
-          <select class="form-select" aria-label="Default select example" name="libro">';
+    echo '<label for="exampleInputPassword1" class="form-label label">Selecciona ID del Libro: </label>
+          <select class="form-select select"  aria-label="Default select example" name="libro">';
     foreach ($ls as $l) {
         echo '<option value="' . $l['Id'] . '">' . $l['Id'] . ' - ' . $l['Titulo'] . '</option>';
     }
     echo '</select>'
-    . '<label for="exampleInputPassword1" class="form-label">Selecciona ID de la Biblioteca: </label>
-          <select class="form-select" aria-label="Default select example" name="biblioteca">';
+    . '<label for="exampleInputPassword1" class="form-label label">Selecciona ID de la Biblioteca: </label>
+          <select class="form-select select" aria-label="Default select example" name="biblioteca">';
     foreach ($bs as $b) {
         echo '<option value="' . $b['Id'] . '">' . $b['Id'] . ' - ' . $b['Nombre'] . '</option>';
     }
     echo '</select>';
-    echo '<label for="exampleInputPassword1" class="form-label">Ejemplares disponibles: </label>'
-    . '<input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="disponibilidad">'
+    echo '<label for="exampleInputPassword1" class="form-label label">Ejemplares disponibles: </label>'
+    . '<input type="number" class="form-control select" id="exampleInputEmail1" aria-describedby="emailHelp" name="disponibilidad">'
     . '<button class="btn btn-outline-success" id="insertar" type="submit" name="insertar">Insertar Registro</button>';
 
     if (isset($_POST['insertar'])) {
@@ -219,6 +205,10 @@ function FormInsertBookLibraries($cadenaConexion) {
         InsertBookLibraries($cadenaConexion, $id_Libro, $id_Biblioteca, $disponibilidad);
     }
 }
+
+/**
+ * Función para insertar un nuevo registro en la base de datos
+ */
 
 function InsertBookLibraries($cadenaConexion, $id_Libro, $id_Biblioteca, $disponibilidad) {
     $bd = new PDO($cadenaConexion, 'root', '');
@@ -236,6 +226,9 @@ function InsertBookLibraries($cadenaConexion, $id_Libro, $id_Biblioteca, $dispon
     }
 }
 
+/**
+ * Función que muestra el formulario para modificar un registro
+ */
 function FormUpdateBookLibraries(){
     echo '<form method="POST" action="../pages/admin.php">
     <label class="form-label">Selecciona ID del Libro: </label>
@@ -247,6 +240,10 @@ function FormUpdateBookLibraries(){
     <button class="btn btn-outline-success boton" id="enviar" type="submit" name="enviar">Modificar</button>
         </form>';
 }
+
+/**
+ * Función para modificar un registro de la base de datos
+ */
 
 function UpdateBookLibraries($cadenaConexion, $disponibilidad, $id_Libro, $id_Biblioteca){
     $bd = new PDO($cadenaConexion, 'root', '');

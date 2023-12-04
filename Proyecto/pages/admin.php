@@ -23,14 +23,17 @@ if (!isset($_SESSION['user'])) {
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">EncuentraTuLibro</a>                    
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="ul">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="admin.php">Inicio</a>
+                                <a class="nav-link active" id="nav--link" aria-current="page" href="admin.php">Inicio</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="insertar.php">Insertar</a>
-                            </li>                                            <button class="btn btn-primary" id="modificar" name="modificar">Modificar</button>  
+                            </li>  
+                            <li class="nav-item">
+                                <a class="nav-link" id="modificar" name="modificar">Modificar</a>
+                            </li>
                         </ul>
                         <div class="d-flex div_boton">
                             <p class="p">Administrador: <span> <?php
@@ -51,7 +54,7 @@ if (!isset($_SESSION['user'])) {
                                 </div>
         <div class="container-xl mt-5 text-center" id="bajar">
             <h1 class="m-4 display-2">Listado de Libros y Bibliotecas</h1>
-            <table class="table table-striped table-hover">
+            <table class="table table-hover">
                 <thead class="table-dark">
                     <tr class="fs-5">
                         <th scope="col">Código</th>

@@ -1,6 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: arial;
+    color: #fff;
+}
+
+body {
+    background: #081b29;
+}
+
+/********************ESTILOS LA BARRA DEL MENU*************************/
 .nav{
     margin-left: 20px;
     margin-right: 20px;
+    color: #fff;
+}
+
+.navbar{
+    color: #fff;
+}
+
+.nav-link{
+    color: #fff;
+}
+
+#nav--link{
+    color: #fff;
+}
+
+.navbar-brand{
+    color: #fff;
 }
 
 .div_boton{
@@ -32,7 +61,7 @@
     width: 700px;
     height: 340px;
     padding-top: 30px;
-    margin-top: 230px;
+    margin-top: 20px;
     margin-left: 350px;
     animation: trasladar 0.5s forwards ease-in-out;
 }
@@ -52,7 +81,7 @@
 
 .mensaje {
     position: absolute;
-    top: 80%;
+    top: 92%;
     left: 70%;
     background-color: rgba(129, 222, 129, 0.471);
     color: white;
@@ -75,4 +104,15 @@
 
 .rojo {
     background-color: red;
+}
+
+.select{
+    background-color: #081b29;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.label{
+    font-family: arial;
+    color: #fff;
 }

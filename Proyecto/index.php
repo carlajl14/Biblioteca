@@ -22,7 +22,7 @@ if(isset($_SESSION['user']) && isset($_SESSION['Rol'])) {
 
 ?>
 
-<html>
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <title>Login</title>
@@ -31,7 +31,7 @@ if(isset($_SESSION['user']) && isset($_SESSION['Rol'])) {
     </head>
     <body>
     <div class="wrapper">
-        <form action="" class="form" method="POST">
+        <form class="form" method="POST">
             <h1 class="title">Inicio</h1>
             <div cLass="inp">
                 <input type="text" name="user" class="input" placeholder="Usuario">
@@ -46,7 +46,7 @@ if(isset($_SESSION['user']) && isset($_SESSION['Rol'])) {
         </form>
         <div></div>
         <div class="banner">
-            <h1 class="wel_text">BIENVENIDO<br/></h1>
+            <h1 class="wel_text">BIENVENIDO<br></h1>
             <p class="para">Inicia sesión</p>
         </div>
     </div>

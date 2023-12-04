@@ -92,10 +92,10 @@ function cardBook($cadenaConexion) {
             $foto = substr($libro, 0, 1);
             $image = substr($libro, 0, 2);
             if ($foto < 10 && $foto == $card['Id']) {
-                echo '<img class="image" src="./../assets/images/' .$card['Id']. '.jpg">';
+                echo '<img class="image" alt="'.$card['Id'].'" src="./../assets/images/' .$card['Id']. '.jpg">';
             } else {
                 if ($image > 9 && $image == $card['Id']) {
-                    echo '<img class="image" src="./../assets/images/' .$card['Id']. '.jpg">';
+                    echo '<img class="image" alt="'.$card['Id'].'" src="./../assets/images/' .$card['Id']. '.jpg">';
                 }
             }
         }
@@ -139,10 +139,10 @@ function getBooksLibrary($cadenaConexion) {
         . '<td>' . $book_library['Nombre'] . '</td>'
         . '<td>' . $book_library['disponibilidad'] . '</td>'
         . '<td>'
-        . '<form method="POST" action="">'
-        . '<input type="text" name="Id_libro"  value="' . $book_library['Id_libro'] . '" hidden/>'
-        . '<input type="text" name="Id_biblioteca"  value="' . $book_library['Id_biblioteca'] . '" hidden/>'
-        . '<button class="btn btn-outline-danger" id="eliminar" type="submit" name="eliminar">Eliminar</button>'
+        . '<form method="POST">'
+        . '<input type="text" name="Id_libro"  value="' . $book_library['Id_libro'] . '" hidden>'
+        . '<input type="text" name="Id_biblioteca"  value="' . $book_library['Id_biblioteca'] . '" hidden>'
+        . '<button class="btn btn-outline-danger" type="submit" name="eliminar">Eliminar</button>'
         . '</form>'
         . '</td>'
         . '</tr>';
@@ -182,20 +182,20 @@ function FormInsertBookLibraries($cadenaConexion) {
     $lib->execute();
     $bs = $lib->fetchAll(PDO::FETCH_ASSOC);
 
-    echo '<label for="exampleInputPassword1" class="form-label label">Selecciona ID del Libro: </label>
-          <select class="form-select select"  aria-label="Default select example" name="libro">';
+    echo '<label for="form-select" class="form-label label">Selecciona ID del Libro: </label>
+          <select class="form-select select" id="form-select"  aria-label="Default select example" name="libro">';
     foreach ($ls as $l) {
         echo '<option value="' . $l['Id'] . '">' . $l['Id'] . ' - ' . $l['Titulo'] . '</option>';
     }
     echo '</select>'
-    . '<label for="exampleInputPassword1" class="form-label label">Selecciona ID de la Biblioteca: </label>
-          <select class="form-select select" aria-label="Default select example" name="biblioteca">';
+    . '<label for="form-select2" class="form-label label">Selecciona ID de la Biblioteca: </label>
+          <select class="form-select select" id="form-select2" aria-label="Default select example" name="biblioteca">';
     foreach ($bs as $b) {
         echo '<option value="' . $b['Id'] . '">' . $b['Id'] . ' - ' . $b['Nombre'] . '</option>';
     }
     echo '</select>';
-    echo '<label for="exampleInputPassword1" class="form-label label">Ejemplares disponibles: </label>'
-    . '<input type="number" class="form-control select" id="exampleInputEmail1" aria-describedby="emailHelp" name="disponibilidad">'
+    echo '<label for="exampleInputEmail1" class="form-label label">Ejemplares disponibles: </label>'
+    . '<input type="number" class="form-control select" id="exampleInputEmail1" name="disponibilidad">'
     . '<button class="btn btn-outline-success" id="insertar" type="submit" name="insertar">Insertar Registro</button>';
 
     if (isset($_POST['insertar'])) {

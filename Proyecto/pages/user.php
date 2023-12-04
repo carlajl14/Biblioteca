@@ -12,7 +12,7 @@ if (!isset($_SESSION['user'])) {
 }
 ?>
 
-<html>
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <title>Cards</title>
